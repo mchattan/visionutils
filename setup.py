@@ -1,7 +1,7 @@
 from setuptools import setup
 
 setup(name='visionutils',
-	version='0.2.0',
+	version='0.2.1',
 	description='a colection of camera and image helper functions for working machine vision',
 	url='http://github.com/mchatten/visionutils',
 	author='Michael Chatten',
