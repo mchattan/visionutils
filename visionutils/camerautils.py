@@ -52,10 +52,10 @@ class CameraUtils:
 	def annotate_image(self, image, notes):
 		cnt = 0
 		for note in notes:
-			cv2.putText(image, note, (10, 20 + 20*cnt), cv2.FONT_HERSHEY_SIMPLEX, .45, (64, 255, 255), 2)
+			cv2.putText(image, note, (10, 20 + 20*cnt), cv2.FONT_HERSHEY_COMPLEX, .5, (15, 15, 15), 1, cv2.LINE_AA)
 			cnt += 1
 		if self.show_fps:
-			cv2.putText(image, "{0:.3} fps".format(self.fps), (image.shape[1]-60, image.shape[0]-10), cv2.FONT_HERSHEY_SIMPLEX, .35, (64, 255, 255), 1)
+			cv2.putText(image, "{0:.3} fps".format(self.fps), (image.shape[1]-60, image.shape[0]-10), cv2.FONT_HERSHEY_COMPLEX, .35, (64, 255, 255), 1, cv2.LINE_AA)
 			self.fps_count += 1
 			if time.time() - self.fps_time > 1:	
 				self.fps = self.fps_count / (time.time() - self.fps_time)			
