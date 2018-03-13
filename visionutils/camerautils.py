@@ -51,17 +51,23 @@ class CameraUtils:
 
 	def annotate_image(self, image, notes):
 		cnt = 0
+		underlay = image.copy()
+		alpha = .50
+		cv2.rectangle(underlay, (5, 5), (185, 48), (0, 0, 0), -1)
+		if self.show_fps:
+			cv2.rectangle(underlay, ((image.shape[1]-65, image.shape[0]-21)), ((image.shape[1]-5, image.shape[0]-5)), (0, 0, 0), -1)
+		cv2.addWeighted(image, alpha, underlay, 1-alpha, 0, image)
 		for note in notes:
-			cv2.putText(image, note, (10, 20 + 20*cnt), cv2.FONT_HERSHEY_COMPLEX, .5, (15, 15, 15), 1, cv2.LINE_AA)
+			cv2.putText(image, note, (10, 20 + 20*cnt), cv2.FONT_HERSHEY_COMPLEX, .5, (255, 255, 255), 1, cv2.LINE_AA)
 			cnt += 1
 		if self.show_fps:
 			cv2.putText(image, "{0:.3} fps".format(self.fps), (image.shape[1]-60, image.shape[0]-10), cv2.FONT_HERSHEY_COMPLEX, .35, (64, 255, 255), 1, cv2.LINE_AA)
 			self.fps_count += 1
-			if time.time() - self.fps_time > 1:	
-				self.fps = self.fps_count / (time.time() - self.fps_time)			
+			if time.time() - self.fps_time > 1:
+				self.fps = self.fps_count / (time.time() - self.fps_time)
 				self.fps_count = 0
 				self.fps_time = time.time()
-		return image		
+		return image
 
 	def show_image(self, image, pause=True, notes=[]):
 		image = self.annotate_image(image, notes)
